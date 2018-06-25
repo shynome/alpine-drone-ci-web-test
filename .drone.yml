@@ -20,5 +20,4 @@ pipeline:
           StrictHostKeyChecking no
     commands:
     - mkdir -p ~/.ssh && echo "$ssh_conf">~/.ssh/config && echo "$SSH_KEY">~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
-    - ssh manager docker service ls
     - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
