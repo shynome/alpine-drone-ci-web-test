@@ -15,6 +15,7 @@ pipeline:
           HostName 173.254.200.81
           StrictHostKeyChecking no
     commands:
+    - echo $ssh_conf
     - mkdir -p ~/.ssh && echo $ssh_conf>~/.ssh/config && echo $SSH_KEY>~/.ssh/id_rsa
     - ssh manager 'echo 666'
     # - deploy docker to manager m_web 
