@@ -1,0 +1,20 @@
+pipeline:
+
+  # publish:
+  #   image: plugins/docker
+  #   secrets: [ docker_username, docker_password ]
+  #   repo: shynome/alpine-drone-ci-web-test
+
+  deploy:
+    image: shynome/alpine-drone-ci
+    secrets: [ ssh_key ]
+    environment:
+      ssh_conf: |
+        Host manager
+          User root
+          HostName 173.254.200.81
+          StrictHostKeyChecking no
+    commands:
+    - mkdir -p ~/.ssh && echo $ssh_conf>~/.ssh/config && echo $SSH_KEY>~/.ssh/id_rsa
+    - ssh manager 'echo 666'
+    # - deploy docker to manager m_web 
