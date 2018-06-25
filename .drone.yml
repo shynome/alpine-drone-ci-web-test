@@ -16,7 +16,7 @@ pipeline:
           StrictHostKeyChecking no
     commands:
     - node -pe "process.env.ssh_conf"
-    - mkdir -p ~/.ssh && echo $ssh_conf>~/.ssh/config && echo $SSH_KEY>~/.ssh/id_rsa
+    - mkdir -p ~/.ssh && echo "$ssh_conf">~/.ssh/config && echo "$SSH_KEY">~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - cat ~/.ssh/config
     # - ssh manager 'echo 666'
