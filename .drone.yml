@@ -1,9 +1,12 @@
 pipeline:
 
-  # publish:
-  #   image: plugins/docker
-  #   secrets: [ docker_username, docker_password ]
-  #   repo: shynome/alpine-drone-ci-web-test
+  publish:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password ]
+    repo: shynome/alpine-drone-ci-web-test
+    tags:
+      - ${DRONE_COMMIT_SHA}
+      - latest
 
   deploy:
     image: shynome/alpine-drone-ci
@@ -15,8 +18,6 @@ pipeline:
           HostName 173.254.200.81
           StrictHostKeyChecking no
     commands:
-    - node -pe "process.env.ssh_conf"
-    - mkdir -p ~/.ssh && echo "$ssh_conf">~/.ssh/config && echo "$SSH_KEY">~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh manager 'echo 666'
+    - mkdir -p ~/.ssh && echo "$ssh_conf">~/.ssh/config && echo "$SSH_KEY">~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:${DRONE_COMMIT_SHA}
     # - deploy docker to manager m_web 
