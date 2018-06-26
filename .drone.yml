@@ -49,7 +49,7 @@ pipeline:
     image: shynome/alpine-drone-ci:dev
     commands:
     - ls /drone/docker
-    - ls ~/.ssh/
+    # - ls ~/.ssh/
     # - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
 
