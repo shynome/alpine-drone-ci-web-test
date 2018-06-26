@@ -1,4 +1,4 @@
-ssh_conf: &ssh_conf
+&ssh_conf
   image: shynome/alpine-drone-ci:dev
   secrets: [ ssh_key ]
   ssh_conf: |
@@ -31,7 +31,7 @@ pipeline:
 
   deploy:
     <<: *ssh_conf
-    deploy: run 'deploy ssh set && ssh manager "echo 7"'
+    deploy: run 'ssh manager "echo 7"'
     # - ls ~/.ssh/
     # - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
