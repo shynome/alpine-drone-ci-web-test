@@ -26,14 +26,15 @@ pipeline:
       - latest
     storage_path: /drone/docker
 
+  deploy:
+    image: shynome/alpine-drone-ci:dev
+    commands:
+    - cat ~/.ssh/config
+    - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
+
   rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
     mount: [ '/drone/docker', '/root/.ssh' ]
     volumes: [ '/tmp/cache:/cache' ]
 
-  deploy:
-    image: shynome/alpine-drone-ci:dev
-    commands:
-    - cat ~/.ssh/config
-    - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
