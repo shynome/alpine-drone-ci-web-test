@@ -34,7 +34,6 @@ pipeline:
   check: &check
     image: shynome/alpine-drone-ci:dev
     commands:
-    - cat .cache_key
     - ls /drone/docker /drone/.ssh
   
   rebuild-cache:
