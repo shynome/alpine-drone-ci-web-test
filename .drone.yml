@@ -17,7 +17,8 @@ pipeline:
           HostName 173.254.200.81
           StrictHostKeyChecking no
     commands:
-    - echo "$ssh_conf">/drone/.ssh/config && echo "$SSH_KEY">/drone/.ssh/id_rsa && chmod 600 /drone/.ssh/id_rsa
+    - mkdir -p /drone/.ssh/ && cd /drone/.ssh
+    - echo "$ssh_conf">config && echo "$SSH_KEY">id_rsa && chmod 600 id_rsa
 
   # publish:
   #   image: plugins/docker
