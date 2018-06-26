@@ -19,13 +19,13 @@ pipeline:
     commands:
     - echo "$ssh_conf">/drone/.ssh/config && echo "$SSH_KEY">/drone/.ssh/id_rsa && chmod 600 /drone/.ssh/id_rsa
 
-  publish:
-    image: plugins/docker
-    secrets: [ docker_username, docker_password ]
-    repo: shynome/alpine-drone-ci-web-test
-    dockerfile: docker/Dockerfile
-    tags: [ '${DRONE_COMMIT_SHA}', latest ]
-    storage_path: /drone/docker
+  # publish:
+  #   image: plugins/docker
+  #   secrets: [ docker_username, docker_password ]
+  #   repo: shynome/alpine-drone-ci-web-test
+  #   dockerfile: docker/Dockerfile
+  #   tags: [ '${DRONE_COMMIT_SHA}', latest ]
+  #   storage_path: /drone/docker
   
   rebuild-cache:
     image: drillster/drone-volume-cache
