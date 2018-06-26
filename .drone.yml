@@ -29,7 +29,7 @@ pipeline:
   deploy:
     image: shynome/alpine-drone-ci:dev
     commands:
-    - ls ~/.ssh/config
+    - ls ~/.ssh/
     - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
   rebuild-cache:
