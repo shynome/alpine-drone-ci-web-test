@@ -8,7 +8,7 @@ pipeline:
 
   preset:
     image: shynome/alpine-drone-ci:dev
-    deploy: ssh config
+    deploy: ssh set
     secrets: [ ssh_key ]
     ssh_conf: |
       Host manager
@@ -21,14 +21,13 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     repo: shynome/alpine-drone-ci-web-test
     dockerfile: docker/Dockerfile
-    tags:
-      - ${DRONE_COMMIT_SHA}
-      - latest
+    tags: [ ${DRONE_COMMIT_SHA}, latest ]
     storage_path: /drone/docker
 
   deploy:
     image: shynome/alpine-drone-ci:dev
     commands:
+    - ls /root/.ssh/
     - ls ~/.ssh/
     - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
