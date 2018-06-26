@@ -21,7 +21,9 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     repo: shynome/alpine-drone-ci-web-test
     dockerfile: docker/Dockerfile
-    tags: [ ${DRONE_COMMIT_SHA}, latest ]
+    tags: 
+      - ${DRONE_COMMIT_SHA}
+      - latest
     storage_path: /drone/docker
 
   deploy:
