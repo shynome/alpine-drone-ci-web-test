@@ -7,11 +7,6 @@ pipeline:
     mount: [ '/drone/docker', '/root/.ssh' ]
     volumes: [ '/tmp/cache:/cache' ]
 
-  check: &check
-    image: shynome/alpine-drone-ci:dev
-    commands:
-    - ls /drone/docker /root/.ssh
-    - echo '666'>/root/.ssh/config
   # preset:
   #   image: shynome/alpine-drone-ci:dev
   #   deploy: ssh set
@@ -31,8 +26,14 @@ pipeline:
     tags: [ '${DRONE_COMMIT_SHA}', latest ]
     storage_path: /drone/docker
   
-  check2:
-    <<: *check
+  check: &check
+    image: shynome/alpine-drone-ci:dev
+    commands:
+    - ls /drone/docker /root/.ssh
+    - echo '666'>/root/.ssh/config
+
+  # check2:
+  #   <<: *check
   
   rebuild-cache:
     image: drillster/drone-volume-cache
