@@ -10,7 +10,7 @@ pipeline:
   sss:
     image: shynome/alpine-drone-ci:dev
     storage_path: /x/.ssh
-    deploy: run 'mkdir -p /x/.ssh/ && echo '666'>/x/.ssh/config'
+    deploy: run "mkdir -p /x/.ssh/ && echo '666'>/x/.ssh/config"
 
   # preset:
   #   image: shynome/alpine-drone-ci:dev
