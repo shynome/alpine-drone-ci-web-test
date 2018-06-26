@@ -7,21 +7,17 @@ pipeline:
     mount: [ '/drone/docker' ]
     volumes: [ '/tmp/cache:/cache' ]
 
-  sss:
+  preset:
     image: shynome/alpine-drone-ci:dev
-    storage_path: /drone/.ssh
-    deploy: run "mkdir -p /drone/.ssh/ && echo '666'>/drone/.ssh/config"
-
-  # preset:
-  #   image: shynome/alpine-drone-ci:dev
-  #   deploy: ssh set
-  #   storage_path: /drone/.ssh
-  #   secrets: [ ssh_key ]
-  #   ssh_conf: |
-  #     Host manager
-  #       User root
-  #       HostName 173.254.200.81
-  #       StrictHostKeyChecking no
+    secrets: [ ssh_key ]
+    environment:
+      ssh_conf: |
+        Host manager
+          User root
+          HostName 173.254.200.81
+          StrictHostKeyChecking no
+    commands:
+    - echo "$ssh_conf">/drone/.ssh/config && echo "$SSH_KEY">/drone/.ssh/id_rsa && chmod 600 /drone/.ssh/id_rsa
 
   publish:
     image: plugins/docker
@@ -31,24 +27,17 @@ pipeline:
     tags: [ '${DRONE_COMMIT_SHA}', latest ]
     storage_path: /drone/docker
   
-  check: &check
-    image: shynome/alpine-drone-ci:dev
-    commands:
-    - ls /drone/docker /drone/.ssh
-  
   rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
     mount: [ '/drone/docker' ]
     volumes: [ '/tmp/cache:/cache' ]
 
-  check3:
-    <<: *check
-
   deploy:
     image: shynome/alpine-drone-ci:dev
     commands:
-    - ls /drone/docker
+    - export HOME=/drone
+    - ssh manager echo 6666
     # - ls ~/.ssh/
     # - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
