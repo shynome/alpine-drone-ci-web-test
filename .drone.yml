@@ -8,6 +8,7 @@ pipeline:
 
   preset:
     image: shynome/alpine-drone-ci:dev
+    deploy: ssh config
     secrets: [ ssh_key ]
     ssh_conf: |
       Host manager
