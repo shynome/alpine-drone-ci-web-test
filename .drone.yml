@@ -1,3 +1,11 @@
+ssh_conf: &ssh_conf
+  image: shynome/alpine-drone-ci:dev
+  secrets: [ ssh_key ]
+  ssh_conf: |
+    Host manager
+      User root
+      HostName 173.254.200.81
+      StrictHostKeyChecking no
 
 pipeline:
 
@@ -6,19 +14,6 @@ pipeline:
     restore: true
     mount: [ '/drone/docker' ]
     volumes: [ '/tmp/cache:/cache' ]
-
-  preset:
-    image: shynome/alpine-drone-ci:dev
-    secrets: [ ssh_key ]
-    environment:
-      ssh_conf: |
-        Host manager
-          User root
-          HostName 173.254.200.81
-          StrictHostKeyChecking no
-    commands:
-    - mkdir -p /drone/.ssh/ && cd /drone/.ssh
-    - echo "$ssh_conf">config && echo "$SSH_KEY">id_rsa && chmod 600 id_rsa
 
   # publish:
   #   image: plugins/docker
@@ -35,10 +30,8 @@ pipeline:
     volumes: [ '/tmp/cache:/cache' ]
 
   deploy:
-    image: shynome/alpine-drone-ci:dev
-    commands:
-    - export HOME=/drone
-    - ssh manager echo 6666
+    <<: *ssh_conf
+    deploy: run 'deploy ssh set && ssh manager "echo 7"'
     # - ls ~/.ssh/
     # - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
