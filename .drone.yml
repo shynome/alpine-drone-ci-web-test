@@ -3,8 +3,17 @@ pipeline:
   restore-cache:
     image: drillster/drone-volume-cache
     restore: true
-    mount: [ '/drone/docker' ]
+    mount: [ '/drone/docker', '/root/.ssh' ]
     volumes: [ '/tmp/cache:/cache' ]
+
+  preset:
+    image: shynome/alpine-drone-ci:dev
+    secrets: [ ssh_key ]
+    ssh_conf: |
+      Host manager
+        User root
+        HostName 173.254.200.81
+        StrictHostKeyChecking no
 
   publish:
     image: plugins/docker
@@ -19,18 +28,10 @@ pipeline:
   rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
-    mount: [ '/drone/docker' ]
+    mount: [ '/drone/docker', '/root/.ssh' ]
     volumes: [ '/tmp/cache:/cache' ]
 
   deploy:
-    image: shynome/alpine-drone-ci
-    secrets: [ ssh_key ]
-    environment:
-      ssh_conf: |
-        Host manager
-          User root
-          HostName 173.254.200.81
-          StrictHostKeyChecking no
+    image: shynome/alpine-drone-ci:dev
     commands:
-    - mkdir -p ~/.ssh && echo "$ssh_conf">~/.ssh/config && echo "$SSH_KEY">~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
     - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
