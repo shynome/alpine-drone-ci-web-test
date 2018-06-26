@@ -1,4 +1,4 @@
-&ssh_conf
+x: &ssh_conf
   image: shynome/alpine-drone-ci:dev
   secrets: [ ssh_key ]
   ssh_conf: |
