@@ -23,13 +23,13 @@ pipeline:
   #       HostName 173.254.200.81
   #       StrictHostKeyChecking no
 
-  # publish:
-  #   image: plugins/docker
-  #   secrets: [ docker_username, docker_password ]
-  #   repo: shynome/alpine-drone-ci-web-test
-  #   dockerfile: docker/Dockerfile
-  #   tags: [ '${DRONE_COMMIT_SHA}', latest ]
-  #   storage_path: /drone/docker
+  publish:
+    image: plugins/docker
+    secrets: [ docker_username, docker_password ]
+    repo: shynome/alpine-drone-ci-web-test
+    dockerfile: docker/Dockerfile
+    tags: [ '${DRONE_COMMIT_SHA}', latest ]
+    storage_path: /drone/docker
   
   check: &check
     image: shynome/alpine-drone-ci:dev
