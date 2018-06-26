@@ -9,6 +9,7 @@ pipeline:
   preset:
     image: shynome/alpine-drone-ci:dev
     deploy: ssh set
+    storage_path: /root/.ssh
     secrets: [ ssh_key ]
     ssh_conf: |
       Host manager
