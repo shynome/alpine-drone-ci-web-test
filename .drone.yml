@@ -1,3 +1,6 @@
+workspace:
+  base: /xxx
+
 pipeline:
 
   restore-cache:
