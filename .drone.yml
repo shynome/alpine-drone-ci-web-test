@@ -10,7 +10,7 @@ pipeline:
   preset:
     image: shynome/alpine-drone-ci:dev
     commands:
-    - ls /root/.ssh
+    - ls /drone/docker
     - echo '666'>/root/.ssh/config
   # preset:
   #   image: shynome/alpine-drone-ci:dev
