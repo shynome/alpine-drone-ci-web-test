@@ -4,18 +4,18 @@ pipeline:
   restore-cache:
     image: drillster/drone-volume-cache
     restore: true
-    mount: [ '/drone/docker', '/x/.ssh' ]
+    mount: [ '/drone/docker', '/drone/.ssh' ]
     volumes: [ '/tmp/cache:/cache' ]
 
   sss:
     image: shynome/alpine-drone-ci:dev
-    storage_path: /x/.ssh
-    deploy: run "mkdir -p /x/.ssh/ && echo '666'>/x/.ssh/config"
+    storage_path: /drone/.ssh
+    deploy: run "mkdir -p /drone/.ssh/ && echo '666'>/drone/.ssh/config"
 
   # preset:
   #   image: shynome/alpine-drone-ci:dev
   #   deploy: ssh set
-  #   storage_path: /x/.ssh
+  #   storage_path: /drone/.ssh
   #   secrets: [ ssh_key ]
   #   ssh_conf: |
   #     Host manager
@@ -35,12 +35,12 @@ pipeline:
     image: shynome/alpine-drone-ci:dev
     commands:
     - cat .cache_key
-    - ls /drone/docker /x/.ssh
+    - ls /drone/docker /drone/.ssh
   
   rebuild-cache:
     image: drillster/drone-volume-cache
     rebuild: true
-    mount: [ '/drone/docker', '/x/.ssh' ]
+    mount: [ '/drone/docker', '/drone/.ssh' ]
     volumes: [ '/tmp/cache:/cache' ]
 
   check3:
