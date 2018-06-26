@@ -31,7 +31,7 @@ pipeline:
 
   deploy:
     <<: *ssh_conf
-    deploy: run 'echo $PLUGIN_SSH_CONF'
+    deploy: run 'node -pe  process.env.PLUGIN_SSH_CONF'
     # - ls ~/.ssh/
     # - deploy docker to manager m_web shynome/alpine-drone-ci-web-test:$DRONE_COMMIT_SHA
 
