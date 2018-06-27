@@ -16,9 +16,9 @@ pipeline:
 
 
 services:
-  when: { branch: master }
   nginx:
     image: shynome/alpine-drone-ci
+    when: { branch: master }
     environment:
       deploy: run 'echo $DRONE_COMMIT_SHA'
 
