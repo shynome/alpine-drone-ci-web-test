@@ -12,11 +12,9 @@ pipeline:
   cmd:
     image: shynome/alpine-drone-ci
     commands:
-      - curl nginx
+      - curl nginx/.drone.yml
 
 
 services:
   nginx:
     image: nginx:stable-alpine
-    commands:
-      - ls . -al
