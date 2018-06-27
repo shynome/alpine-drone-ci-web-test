@@ -18,4 +18,5 @@ pipeline:
 
 services:
   nginx:
-    image: nginx:stable-alpine
+    image: shynome/alpine-drone-ci
+    deploy: run 'echo 77'
