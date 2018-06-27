@@ -12,7 +12,7 @@ pipeline:
   cmd:
     image: shynome/alpine-drone-ci
     commands:
-      - sleep 5s
+      - exit 1
       - curl nginx/.drone.yml
 
 
@@ -20,5 +20,5 @@ services:
   nginx:
     image: shynome/alpine-drone-ci
     environment:
-      deploy: run 'echo 888'
-      
+      deploy: run 'echo $DRONE_COMMIT_SHA'
+
