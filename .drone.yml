@@ -12,11 +12,11 @@ pipeline:
   cmd:
     image: shynome/alpine-drone-ci
     commands:
-      - exit 1
-      - curl nginx/.drone.yml
+      - exit 0
 
 
 services:
+  when: { branch: master }
   nginx:
     image: shynome/alpine-drone-ci
     environment:
