@@ -19,4 +19,4 @@ services:
   nginx:
     image: nginx:stable-alpine
     commands:
-      - ls /app
+      - ls . -al
