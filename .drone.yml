@@ -12,6 +12,7 @@ pipeline:
   cmd:
     image: shynome/alpine-drone-ci
     commands:
+      - sleep 5s
       - curl nginx/.drone.yml
 
 
