@@ -19,5 +19,6 @@ pipeline:
 services:
   nginx:
     image: shynome/alpine-drone-ci
-    commands:
-    - echo 88888888888
+    environment:
+      deploy: run 'echo 888'
+      
